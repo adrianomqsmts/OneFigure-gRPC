@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package proto;
+
+
+// Comando para gerar o proto:
+// python -m grpc_tools.protoc --proto_path=. .\proto\message.proto --python_out=. --grpc_python_out=.
+
+
+// Como escrever em PROTO
+// https://developers.google.com/protocol-buffers/docs/proto3
+
+
+// Como enviar um array de dados
+// https://stackoverflow.com/questions/43167762/how-to-return-an-array-in-protobuf-service-rpc
+service Message{
+
+ // Chamar a função Login do servidor passando a mensagem LOGIN do cliente
+ rpc Login(MessageClient) returns (LoginResponse) {}
+ // Chama a função do servidor para cadastrar um novo usuário
+ rpc Create(MessageClient) returns (Response) {}
+ // Chama a função do servidor para visualizar o álbum
+ rpc Album(MessageClient) returns (AlbumResponse) {}
+}
+
+message MessageClient{
+ optional int32 idUser = 1;
+ optional int32 idFigure = 2;
+ optional int32 idOffer = 3;
+ optional int32 idTaking = 4;
+ optional string name = 5;
+ optional string password = 6;
+}
+
+message Figure{
+ int32 idFigure = 1;
+ string name = 2;
+ string rarity = 3;
+ string path = 4;
+ optional int32 quantity = 5;
+ optional int32 idUser = 6;
+}
+
+message User{
+ int32 idUser = 1;
+ string name = 2;
+ float balance = 3;
+ string password = 4;
+ bool showcard = 5;
+}
+
+message LoginResponse{
+ bool response = 1;
+ User user = 2;
+ optional Figure figure = 3;
+}
+
+message AlbumResponse{
+ bool response = 1;
+ bool complete = 2;
+ int32 idUser = 3;
+ optional Figure special = 4;
+ repeated Figure figures = 5;
+}
+
+message Response{
+ bool response = 1;
+}

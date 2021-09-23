@@ -46,7 +46,6 @@ def login(name, password):
 def create(name, password):
     mydb = conn.connect()
     mycursor = mydb.cursor(dictionary=True)
-
     try:
         sql = "INSERT INTO usuario (name, password) VALUES (%s, %s)"
         val = [(name, password)]
@@ -106,6 +105,7 @@ def show(idcard):
     mycursor.execute(sql, var)
     data = mycursor.fetchone()
     return data
+
 
 def showBalance(id_user):
     mydb = conn.connect()

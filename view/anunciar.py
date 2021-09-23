@@ -1,8 +1,9 @@
-from controller.anunciar import anunciar
+import json
+import controller.client as clt
 
 
 def anunciarview():
-    response = anunciar()
+    response = _anunciar()
     if response:
         print("--------------------- LISTA DE TROCAS -------------------")
         for trade in response:
@@ -15,3 +16,16 @@ def anunciarview():
     else:
         print('Lamentamos, mas não foi possível exibir as trocas')
         return None
+
+
+def _anunciar():
+    data = {
+        'function': 8
+    }
+
+    response = clt.client(data=data)
+
+    if 'response' in response:  # Se tiver o campo responde dentro da resposta, então houve algum tipo de erro
+        return False
+    else:
+        return response

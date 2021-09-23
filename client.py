@@ -1,6 +1,9 @@
 import json
 
 from controller.client import Client
+
+import controller.client as clt
+from tkinter import *
 import view.login as vl
 import view.singin as vs
 import view.album as al
@@ -9,9 +12,10 @@ import view.offer as of
 import view.anunciar as va
 import view.trade as vt
 
+# Press the green button in the gutter to run the script.
+
+
 if __name__ == '__main__':
-    #try:
-    client = Client()
     user = None
     print('Iniciando a aplicação...')
     while True:  # WHILE LOGIN
@@ -29,7 +33,7 @@ if __name__ == '__main__':
                         pass
                     elif option == '2':
                         opt = int(input("Você deseja confirmar a compra ? (custo 25 moedas)\n"
-                                        "              1 - SIM | 2 - NÃO\n"))
+                                    "              1 - SIM | 2 - NÃO\n"))
 
                         if opt != 1:
                             continue
@@ -81,8 +85,12 @@ if __name__ == '__main__':
             vs.singinview(name=name, password=password)
         else:
             break
-#except Exception as e:
-        #print('Erro ao conectar o cliente: ', e)
 
-
-
+# if __name__ == '__main__':
+#     client = Client()
+#     name = 'fulano'
+#     password = 'fulano'
+#     result = client.login(name=name, password=password)
+#     response = result.response
+#     user = result.user
+#     print(user.idUser)

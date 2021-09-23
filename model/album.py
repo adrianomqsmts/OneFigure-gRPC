@@ -1,5 +1,5 @@
 import controller.connect as conn
-import model.figure as figure
+import model.figura as figure
 
 
 def show(id_user):
@@ -29,3 +29,4 @@ def show(id_user):
         result.append('')
         print()
     return result
+
