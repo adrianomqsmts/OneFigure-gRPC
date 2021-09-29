@@ -108,6 +108,54 @@ class MessageService(pb2_grpc.MessageServicer):
         }
         return pb2.AlbumResponse(**out)
 
+    def _createTrade(self, idUser, offer, taking):
+        database = figure.createTrade(idUser=idUser, offer=offer, taking=taking)
+        if database:
+            result = {
+                'response': True,
+            }
+        else:
+            result = {
+                'response': False,
+            }
+        data = json.dumps(result)  # convertendo para dicionário
+        return data
+
+    def _listTrade(self):
+        database = figure.listTrade()
+        if database:
+            result = database
+        else:
+            result = {
+                'response': False,
+            }
+        data = json.dumps(result)
+        return data
+
+    def _sell(self, idUser, idFigure):
+        database = figure.sell(idUser, idFigure)
+        if database:
+            result = database
+        else:
+            result = {
+                'response': False,
+            }
+        data = json.dumps(result)  # convertendo para dicionário
+        return data
+
+    def _trade(self, idUser, idTrade):
+        database = figure.trade(idUser, idTrade)
+        if database:
+            result = {
+                'response': True,
+            }
+        else:
+            result = {
+                'response': False,
+            }
+        data = json.dumps(result)  # convertendo para dicionário
+        return data
+
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_MessageServicer_to_server(MessageService(), server)
