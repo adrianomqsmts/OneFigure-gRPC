@@ -25,3 +25,7 @@ class Client(object):
     def album(self, idUser):
         message = pb2.MessageClient(idUser=idUser)
         return self.stub.Album(message)
+
+    def buy(self, idUser):
+        message = pb2.MessageClient(idUser=idUser)
+        return self.stub.Buy(message)

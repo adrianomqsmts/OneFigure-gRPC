@@ -1,11 +1,13 @@
 import controller.connect as conn
 from random import randint
+import sqlite3
 
 
 def buy(id_user):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "SELECT * FROM usuario WHERE idUser = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM usuario WHERE idUser = ?"
     var = (id_user,)
     mycursor.execute(sql, var)
     result = mycursor.fetchone()
@@ -26,8 +28,9 @@ def buy(id_user):
 def buyAction(id_user, value):
     cards = []
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "UPDATE usuario SET balance = %s WHERE idUser = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "UPDATE usuario SET balance = ? WHERE idUser = ?"
     var = (value - 25, id_user)
     mycursor.execute(sql, var)
     mydb.commit()
@@ -43,18 +46,19 @@ def summon(cards):
 
 def addCard(id_user, cards):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
     for i in range(3):
-        sql = "SELECT * FROM album WHERE idFigure = %s and idUser = %s"
+        sql = "SELECT * FROM album WHERE idFigure = ? and idUser = ?"
         var = (cards[i], id_user)
         mycursor.execute(sql, var)
         ver = mycursor.fetchone()
         if ver:
-            sql = "UPDATE album SET quantity = %s WHERE idUser = %s and idFigure = %s"
+            sql = "UPDATE album SET quantity = ? WHERE idUser = ? and idFigure = ?"
             var = (ver['quantity'] + 1, id_user, cards[i])
             mycursor.execute(sql, var)
         else:
-            sql = "INSERT INTO album (idUser,idFigure,quantity) VALUES (%s, %s, %s)"
+            sql = "INSERT INTO album (idUser,idFigure,quantity) VALUES (?, ?, ?)"
             var = (id_user, cards[i], 1)
             mycursor.execute(sql, var)
     mydb.commit()
@@ -62,18 +66,19 @@ def addCard(id_user, cards):
 
 def addFigure(idUser, idFigure):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
 
-    sql = "SELECT * FROM album WHERE idFigure = %s and idUser = %s"
+    sql = "SELECT * FROM album WHERE idFigure = ? and idUser = ?"
     var = (idFigure, idUser)
     mycursor.execute(sql, var)
     ver = mycursor.fetchone()
     if ver:
-        sql = "UPDATE album SET quantity = %s WHERE idUser = %s and idFigure = %s"
+        sql = "UPDATE album SET quantity = ? WHERE idUser = ? and idFigure = ?"
         var = (ver['quantity'] + 1, idUser, idFigure)
         mycursor.execute(sql, var)
     else:
-        sql = "INSERT INTO album (idUser,idFigure,quantity) VALUES (%s, %s, %s)"
+        sql = "INSERT INTO album (idUser,idFigure,quantity) VALUES (?, ?, ?)"
         var = (idUser, idFigure, 1)
         mycursor.execute(sql, var)
     mydb.commit()
@@ -81,9 +86,10 @@ def addFigure(idUser, idFigure):
 
 def show(cards, result):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
     for i in range(3):
-        sql = "SELECT * FROM figure WHERE idFigure = %s"
+        sql = "SELECT * FROM figure WHERE idFigure = ?"
         var = (cards[i],)
         mycursor.execute(sql, var)
         result.append(mycursor.fetchone())
@@ -91,8 +97,9 @@ def show(cards, result):
 
 def showone(cards, result):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "SELECT * FROM figure WHERE idFigure = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM figure WHERE idFigure = ?"
     var = (cards,)
     mycursor.execute(sql, var)
     result.append(mycursor.fetchone())
@@ -100,10 +107,11 @@ def showone(cards, result):
 
 def verifyQuantity(idUser, idFigure):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
     try:
-        sql = "SELECT quantity FROM usuario INNER JOIN album ON usuario.idUser = %s AND" \
-              " album.idUser = %s AND idFigure = %s;"
+        sql = "SELECT quantity FROM usuario INNER JOIN album ON usuario.idUser = ? AND" \
+              " album.idUser = ? AND idFigure = ?;"
         val = (idUser, idUser, idFigure)
         mycursor.execute(sql, val)
         result = mycursor.fetchone()
@@ -119,12 +127,13 @@ def verifyQuantity(idUser, idFigure):
 
 def createTrade(idUser, offer, taking):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
     if verifyQuantity(idUser, offer):  # Verificar a quantidade de cartas se pode trocar
         try:
             valid = _offer(idUser, offer)
             if valid:
-                sql = "INSERT INTO trade (idUser, offer, taking) VALUES (%s, %s, %s)"
+                sql = "INSERT INTO trade (idUser, offer, taking) VALUES (?, ?, ?)"
                 val = [(idUser, offer, taking)]
                 mycursor.executemany(sql, val)
                 mydb.commit()
@@ -141,14 +150,15 @@ def createTrade(idUser, offer, taking):
 def _offer(idUser, offer):
     try:
         mydb = conn.connect()
-        mycursor = mydb.cursor(dictionary=True)
-        sql = "SELECT * FROM album WHERE idFigure = %s and idUser = %s"
+        mydb.row_factory = sqlite3.Row
+        mycursor = mydb.cursor()
+        sql = "SELECT * FROM album WHERE idFigure = ? and idUser = ?"
         var = (offer, idUser)
         mycursor.execute(sql, var)
         result = mycursor.fetchone()
         value = int(result['quantity']) - 1
         if result:
-            sql = "UPDATE album SET quantity = %s WHERE idUser = %s AND idFigure = %s"
+            sql = "UPDATE album SET quantity = ? WHERE idUser = ? AND idFigure = ?"
             var = (value, idUser, offer)
             mycursor.execute(sql, var)
             mydb.commit()
@@ -160,7 +170,8 @@ def _offer(idUser, offer):
 
 def listTrade():
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
 
     sql = "SELECT u.name, t.idTrade, offer.idFigure as offerID, offer.name as offerName, offer.rarity as offerRarity," \
           " taking.idFigure as takingID, taking.name as takingName, taking.rarity as takingRarity " \
@@ -176,9 +187,10 @@ def listTrade():
 
 def findTrade(idTrade):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
 
-    sql = "SELECT * FROM Trade WHERE idTrade = %s"
+    sql = "SELECT * FROM Trade WHERE idTrade = ?"
     var = (idTrade,)
 
     mycursor.execute(sql, var)
@@ -189,9 +201,10 @@ def findTrade(idTrade):
 
 def deleteTrade(idTrade):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
 
-    sql = "DELETE FROM trade WHERE idTrade = %s"
+    sql = "DELETE FROM trade WHERE idTrade = ?"
     var = (idTrade,)
 
     mycursor.execute(sql, var)
@@ -200,17 +213,18 @@ def deleteTrade(idTrade):
 
 def trade(idUser, idTrade):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
     trade = findTrade(idTrade)
     if trade:
         if verifyQuantity(idUser, trade['taking']) and trade:
             # OFFER
-            sql = "SELECT * FROM album WHERE idFigure = %s and idUser = %s"
+            sql = "SELECT * FROM album WHERE idFigure = ? and idUser = ?"
             var = (trade['taking'], idUser)
             mycursor.execute(sql, var)
             result = mycursor.fetchone()
             if result:
-                sql = "UPDATE album SET quantity = %s WHERE idUser = %s and idFigure = %s"
+                sql = "UPDATE album SET quantity = ? WHERE idUser = ? and idFigure = ?"
                 var = (result['quantity'] - 1, idUser, trade['taking'])
                 mycursor.execute(sql, var)
                 mydb.commit()
@@ -227,8 +241,9 @@ def trade(idUser, idTrade):
 
 def sell(id_user, id_figure):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "SELECT * FROM album WHERE idFigure = %s and idUser = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM album WHERE idFigure = ? and idUser = ?"
     var = (id_figure, id_user)
     mycursor.execute(sql, var)
     data = mycursor.fetchone()
@@ -249,8 +264,9 @@ def sell(id_user, id_figure):
 
 def sellAction(id_user, id_figure, quantity):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "UPDATE album SET quantity = %s WHERE idUser = %s and idFigure = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "UPDATE album SET quantity = ? WHERE idUser = ? and idFigure = ?"
     var = (quantity - 1, id_user, id_figure)
     mycursor.execute(sql, var)
     mydb.commit()
@@ -260,19 +276,20 @@ def sellAction(id_user, id_figure, quantity):
 
 def addBalance(id_user, id_figure):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "SELECT * FROM usuario WHERE idUser = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM usuario WHERE idUser = ?"
     var = (id_user,)
     mycursor.execute(sql, var)
     data1 = mycursor.fetchone()
     balance = data1['balance']
-    sql = "SELECT * FROM figure WHERE idFigure = %s"
+    sql = "SELECT * FROM figure WHERE idFigure = ?"
     var = (id_figure,)
     mycursor.execute(sql, var)
     data2 = mycursor.fetchone()
     rarity = data2['rarity']
     price = getPrice(rarity)
-    sql = "UPDATE usuario SET balance = %s WHERE idUser = %s"
+    sql = "UPDATE usuario SET balance = ? WHERE idUser = ?"
     var = (balance + price, id_user,)
     mycursor.execute(sql, var)
     mydb.commit()
@@ -294,8 +311,9 @@ def getPrice(rarity):
 
 def verifyComplet(id_user):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "SELECT * FROM album WHERE idUser = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM album WHERE idUser = ?"
     var = (id_user,)
     mycursor.execute(sql, var)
     data = mycursor.fetchall()
@@ -307,8 +325,9 @@ def verifyComplet(id_user):
 
 def addSpecialCard(id_user):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "INSERT INTO album (idUser,idFigure,quantity) VALUES (%s, %s, %s)"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO album (idUser,idFigure,quantity) VALUES (?, ?, ?)"
     var = (id_user, 51, 1)
     mycursor.execute(sql, var)
     data = mycursor.fetchone()

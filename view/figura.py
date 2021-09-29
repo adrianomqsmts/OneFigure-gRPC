@@ -1,5 +1,5 @@
 import json
-import controller.client as clt
+from controller.client import Client
 
 
 def figureview(user):
@@ -20,6 +20,15 @@ def figureview(user):
 
 
 def _figure(user):
+
+    client = Client()
+    response = client.buy(idUser=user.idUser)
+    isvalid = response.response
+    user = response.user
+    figure = response.figure
+
+    return isvalid, user, figure
+
     data = {
         'function': 2,
         'idUser': user['idUser']

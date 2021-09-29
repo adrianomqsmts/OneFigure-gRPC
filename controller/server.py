@@ -7,6 +7,7 @@ import proto.message_pb2_grpc as pb2_grpc
 import proto.message_pb2 as pb2
 import model.user as user
 import model.album as album
+import model.figura as figure
 import json
 import socket
 from threading import Thread
@@ -86,6 +87,25 @@ class MessageService(pb2_grpc.MessageServicer):
                 'figures': None,
             }
         print('Response <- ', f'{out}')
+        return pb2.AlbumResponse(**out)
+
+    def Buy(self, request, context):
+        print('Buy -> IdUser:', request.idUser)
+        idUser = request.idUser
+        database = figure.buy(idUser)
+        print(f'{database}')
+        if database:
+            result = database
+        else:
+            result = {
+                'response': False,
+            }
+        out = {
+            'response': False,
+            'complete': 0,
+            'special': None,
+            'figures': None,
+        }
         return pb2.AlbumResponse(**out)
 
 def serve():

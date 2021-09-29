@@ -1,13 +1,15 @@
 import controller.connect as conn
 import model.figura as figure
+import sqlite3
 
 
 def show(id_user):
     result = []
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
 
-    sql = "SELECT * FROM album INNER JOIN figure ON idUser = %s AND album.idFigure = figure.idFigure;"
+    sql = "SELECT * FROM album INNER JOIN figure ON idUser = ? AND album.idFigure = figure.idFigure;"
     var = (id_user, )
 
     mycursor.execute(sql, var)

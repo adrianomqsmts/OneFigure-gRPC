@@ -1,6 +1,7 @@
 import controller.connect as conn
 from datetime import datetime
 from random import randint
+import sqlite3
 
 
 def login(name, password):
@@ -14,8 +15,10 @@ def login(name, password):
     now = str(datetime.today().year) + '-' + mounth + '-' + str(
         day)
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "SELECT * FROM Usuario WHERE name = %s and password = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+
+    sql = "SELECT * FROM Usuario WHERE name = ? and password = ?"
     var = (name, password,)
     mycursor.execute(sql, var)
     temp = mycursor.fetchone()
@@ -45,9 +48,10 @@ def login(name, password):
 
 def create(name, password):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
     try:
-        sql = "INSERT INTO usuario (name, password) VALUES (%s, %s)"
+        sql = "INSERT INTO usuario (name, password) VALUES (?, ?)"
         val = [(name, password)]
         mycursor.executemany(sql, val)
         mydb.commit()
@@ -70,8 +74,9 @@ def registerDateLogin(name, now):
     clock = str(hour) + ':' + str(minute) + ':00'
     now = now + ' ' + clock
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "UPDATE usuario SET login = %s WHERE name = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "UPDATE usuario SET login = ? WHERE name = ?"
     var = (now, name,)
     mycursor.execute(sql, var)
     mydb.commit()
@@ -80,17 +85,18 @@ def registerDateLogin(name, now):
 def dailySummon(id_user):
     idcard = randint(1, 50)
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "SELECT * FROM album WHERE idFigure = %s and idUser = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM album WHERE idFigure = ? and idUser = ?"
     var = (idcard, id_user)
     mycursor.execute(sql, var)
     ver = mycursor.fetchone()
     if ver:
-        sql = "UPDATE album SET quantity = %s WHERE idUser = %s and idFigure = %s"
+        sql = "UPDATE album SET quantity = ? WHERE idUser = ? and idFigure = ?"
         var = (ver['quantity'] + 1, id_user, idcard)
         mycursor.execute(sql, var)
     else:
-        sql = "INSERT INTO album (idUser,idFigure,quantity) VALUES (%s, %s, %s)"
+        sql = "INSERT INTO album (idUser,idFigure,quantity) VALUES (?, ?, ?)"
         var = (id_user, idcard, 1)
         mycursor.execute(sql, var)
     mydb.commit()
@@ -99,8 +105,9 @@ def dailySummon(id_user):
 
 def show(idcard):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "SELECT * FROM figure WHERE idFigure = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM figure WHERE idFigure = ?"
     var = (idcard,)
     mycursor.execute(sql, var)
     data = mycursor.fetchone()
@@ -109,8 +116,9 @@ def show(idcard):
 
 def showBalance(id_user):
     mydb = conn.connect()
-    mycursor = mydb.cursor(dictionary=True)
-    sql = "SELECT * FROM usuario WHERE idUser = %s"
+    mydb.row_factory = sqlite3.Row
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM usuario WHERE idUser = ?"
     var = (id_user,)
     mycursor.execute(sql, var)
     result = mycursor.fetchone()

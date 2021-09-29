@@ -21,6 +21,9 @@ service Message{
  rpc Create(MessageClient) returns (Response) {}
  // Chama a função do servidor para visualizar o álbum
  rpc Album(MessageClient) returns (AlbumResponse) {}
+ // Chama a função do servidor que realiza a compra e exibe as figurinhas
+ rpc Buy(MessageClient) returns (AlbumResponse) {}
+
 }
 
 message MessageClient{

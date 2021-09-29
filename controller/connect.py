@@ -1,12 +1,6 @@
 def connect():
-    import mysql.connector
+    import sqlite3
+    conn = sqlite3.connect('oneFigure.db')
+    return conn
 
-    mydb = mysql.connector.connect(
-        host="localhost",
-        port="3306",
-        user="root",
-        password="",
-        database="oneFigure"
-    )
-
-    return mydb
+# Fonte: http://pythonclub.com.br/gerenciando-banco-dados-sqlite3-python-parte1.html
