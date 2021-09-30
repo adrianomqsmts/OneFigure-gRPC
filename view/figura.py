@@ -3,70 +3,46 @@ from controller.client import Client
 
 
 def figureview(user):
-    response = _figure(user)
-    if response:
-        balance = response[3]
-        del response[3]
+    isvalid, balance, figures = _figure(user)
+    if isvalid:
         print('\n ------------ Figurinhas Adquiridas ------------------')
         print("ID | NOME | RARIDADE | ")
-        for figure in response:
-            print(figure['idFigure'], '|', figure['name'], '|', figure['rarity'])
+        for figure in figures:
+            print(figure.idFigure, '|', figure.name, '|', figure.rarity)
         print('\nseu novo saldo é de', balance, "moedas")
         print()
-        return response
+        return user
     else:
         print('Não foi possivel fazer a compra saldo insuficiente')
         return None
 
 
 def _figure(user):
-
     client = Client()
     response = client.buy(idUser=user.idUser)
     isvalid = response.response
-    user = response.user
-    figure = response.figure
-
-    return isvalid, user, figure
-
-    data = {
-        'function': 2,
-        'idUser': user['idUser']
-    }
-
-    response = clt.client(data=data)
-
-    if 'response' in response:  # Se tiver o campo responde dentro da resposta, então houve algum tipo de erro
-        return 0
-    else:
-        return response
+    balance = response.balance
+    figures = response.figures
+    return isvalid, balance, figures
 
 
-def figuresellview(user, opt):
-    response = _figuresell(user, opt)
-    figure = response
+def figuresellview(user, figure):
+    isvalid, price, name = _figuresell(user, figure)
 
-    if response:
+    if isvalid:
         print('\n ------------ Figurinhas Vendidas ------------------')
-        print(figure['name'], 'por', figure['price'], 'moedas')
-        print('seu novo saldo é de', figure['balance'], "moedas")
+        print(name, 'por', price, 'moedas')
         print()
-        return response
+        return user
     else:
         print('Não foi possivel fazer a venda, você não possui uma ou mais cópias dessa figurinha')
         return None
 
 
-def _figuresell(user, opt):
-    data = {
-        'function': 1,
-        'idUser': user['idUser'],
-        'idFigure': opt
-    }
-
-    response = clt.client(data=data)
-
-    if 'response' in response:  # Se tiver o campo responde dentro da resposta, então houve algum tipo de erro
-        return 0
-    else:
-        return response
+def _figuresell(user, idFigure):
+    client = Client()
+    response = client.sell(idUser=user.idUser, idFigure=int(idFigure))
+    isvalid = response.response
+    price = response.price
+    name = response.name
+    return isvalid, price, name

@@ -23,7 +23,8 @@ service Message{
  rpc Album(MessageClient) returns (AlbumResponse) {}
  // Chama a função do servidor que realiza a compra e exibe as figurinhas
  rpc Buy(MessageClient) returns (AlbumResponse) {}
-
+ // Chama a função venda e mostra as figuras adquiridas
+ rpc Sell(MessageClient) returns (SellResponse) {}
 
 }
 
@@ -40,7 +41,7 @@ message Figure{
  int32 idFigure = 1;
  string name = 2;
  string rarity = 3;
- string path = 4;
+ optional string path = 4;
  optional int32 quantity = 5;
  optional int32 idUser = 6;
 }
@@ -61,10 +62,17 @@ message LoginResponse{
 
 message AlbumResponse{
  bool response = 1;
- bool complete = 2;
- int32 idUser = 3;
+ optional bool complete = 2;
+ optional int32 idUser = 3;
  optional Figure special = 4;
  repeated Figure figures = 5;
+ optional float balance = 6;
+}
+
+message SellResponse{
+ bool response = 1;
+ float price = 2;
+ string name = 3;
 }
 
 message Response{

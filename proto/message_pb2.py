@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13proto/message.proto\x12\x05proto\"\xd9\x01\n\rMessageClient\x12\x13\n\x06idUser\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x15\n\x08idFigure\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x14\n\x07idOffer\x18\x03 \x01(\x05H\x02\x88\x01\x01\x12\x15\n\x08idTaking\x18\x04 \x01(\x05H\x03\x88\x01\x01\x12\x11\n\x04name\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x15\n\x08password\x18\x06 \x01(\tH\x05\x88\x01\x01\x42\t\n\x07_idUserB\x0b\n\t_idFigureB\n\n\x08_idOfferB\x0b\n\t_idTakingB\x07\n\x05_nameB\x0b\n\t_password\"\x8a\x01\n\x06\x46igure\x12\x10\n\x08idFigure\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06rarity\x18\x03 \x01(\t\x12\x0c\n\x04path\x18\x04 \x01(\t\x12\x15\n\x08quantity\x18\x05 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06idUser\x18\x06 \x01(\x05H\x01\x88\x01\x01\x42\x0b\n\t_quantityB\t\n\x07_idUser\"Y\n\x04User\x12\x0e\n\x06idUser\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x02\x12\x10\n\x08password\x18\x04 \x01(\t\x12\x10\n\x08showcard\x18\x05 \x01(\x08\"k\n\rLoginResponse\x12\x10\n\x08response\x18\x01 \x01(\x08\x12\x19\n\x04user\x18\x02 \x01(\x0b\x32\x0b.proto.User\x12\"\n\x06\x66igure\x18\x03 \x01(\x0b\x32\r.proto.FigureH\x00\x88\x01\x01\x42\t\n\x07_figure\"\x94\x01\n\rAlbumResponse\x12\x10\n\x08response\x18\x01 \x01(\x08\x12\x10\n\x08\x63omplete\x18\x02 \x01(\x08\x12\x0e\n\x06idUser\x18\x03 \x01(\x05\x12#\n\x07special\x18\x04 \x01(\x0b\x32\r.proto.FigureH\x00\x88\x01\x01\x12\x1e\n\x07\x66igures\x18\x05 \x03(\x0b\x32\r.proto.FigureB\n\n\x08_special\"\x1c\n\x08Response\x12\x10\n\x08response\x18\x01 \x01(\x08\x32\xaa\x01\n\x07Message\x12\x35\n\x05Login\x12\x14.proto.MessageClient\x1a\x14.proto.LoginResponse\"\x00\x12\x31\n\x06\x43reate\x12\x14.proto.MessageClient\x1a\x0f.proto.Response\"\x00\x12\x35\n\x05\x41lbum\x12\x14.proto.MessageClient\x1a\x14.proto.AlbumResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x13proto/message.proto\x12\x05proto\"\xd9\x01\n\rMessageClient\x12\x13\n\x06idUser\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x15\n\x08idFigure\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x14\n\x07idOffer\x18\x03 \x01(\x05H\x02\x88\x01\x01\x12\x15\n\x08idTaking\x18\x04 \x01(\x05H\x03\x88\x01\x01\x12\x11\n\x04name\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x15\n\x08password\x18\x06 \x01(\tH\x05\x88\x01\x01\x42\t\n\x07_idUserB\x0b\n\t_idFigureB\n\n\x08_idOfferB\x0b\n\t_idTakingB\x07\n\x05_nameB\x0b\n\t_password\"\x98\x01\n\x06\x46igure\x12\x10\n\x08idFigure\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06rarity\x18\x03 \x01(\t\x12\x11\n\x04path\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08quantity\x18\x05 \x01(\x05H\x01\x88\x01\x01\x12\x13\n\x06idUser\x18\x06 \x01(\x05H\x02\x88\x01\x01\x42\x07\n\x05_pathB\x0b\n\t_quantityB\t\n\x07_idUser\"Y\n\x04User\x12\x0e\n\x06idUser\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x02\x12\x10\n\x08password\x18\x04 \x01(\t\x12\x10\n\x08showcard\x18\x05 \x01(\x08\"k\n\rLoginResponse\x12\x10\n\x08response\x18\x01 \x01(\x08\x12\x19\n\x04user\x18\x02 \x01(\x0b\x32\x0b.proto.User\x12\"\n\x06\x66igure\x18\x03 \x01(\x0b\x32\r.proto.FigureH\x00\x88\x01\x01\x42\t\n\x07_figure\"\xd8\x01\n\rAlbumResponse\x12\x10\n\x08response\x18\x01 \x01(\x08\x12\x15\n\x08\x63omplete\x18\x02 \x01(\x08H\x00\x88\x01\x01\x12\x13\n\x06idUser\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12#\n\x07special\x18\x04 \x01(\x0b\x32\r.proto.FigureH\x02\x88\x01\x01\x12\x1e\n\x07\x66igures\x18\x05 \x03(\x0b\x32\r.proto.Figure\x12\x14\n\x07\x62\x61lance\x18\x06 \x01(\x02H\x03\x88\x01\x01\x42\x0b\n\t_completeB\t\n\x07_idUserB\n\n\x08_specialB\n\n\x08_balance\"=\n\x0cSellResponse\x12\x10\n\x08response\x18\x01 \x01(\x08\x12\r\n\x05price\x18\x02 \x01(\x02\x12\x0c\n\x04name\x18\x03 \x01(\t\"\x1c\n\x08Response\x12\x10\n\x08response\x18\x01 \x01(\x08\x32\x94\x02\n\x07Message\x12\x35\n\x05Login\x12\x14.proto.MessageClient\x1a\x14.proto.LoginResponse\"\x00\x12\x31\n\x06\x43reate\x12\x14.proto.MessageClient\x1a\x0f.proto.Response\"\x00\x12\x35\n\x05\x41lbum\x12\x14.proto.MessageClient\x1a\x14.proto.AlbumResponse\"\x00\x12\x33\n\x03\x42uy\x12\x14.proto.MessageClient\x1a\x14.proto.AlbumResponse\"\x00\x12\x33\n\x04Sell\x12\x14.proto.MessageClient\x1a\x13.proto.SellResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -184,18 +184,23 @@ _FIGURE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
-      name='_quantity', full_name='proto.Figure._quantity',
+      name='_path', full_name='proto.Figure._path',
       index=0, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
     _descriptor.OneofDescriptor(
-      name='_idUser', full_name='proto.Figure._idUser',
+      name='_quantity', full_name='proto.Figure._quantity',
       index=1, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_idUser', full_name='proto.Figure._idUser',
+      index=2, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
   serialized_start=251,
-  serialized_end=389,
+  serialized_end=403,
 )
 
 
@@ -254,8 +259,8 @@ _USER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=391,
-  serialized_end=480,
+  serialized_start=405,
+  serialized_end=494,
 )
 
 
@@ -305,8 +310,8 @@ _LOGINRESPONSE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=482,
-  serialized_end=589,
+  serialized_start=496,
+  serialized_end=603,
 )
 
 
@@ -353,6 +358,13 @@ _ALBUMRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='balance', full_name='proto.AlbumResponse.balance', index=5,
+      number=6, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -365,13 +377,74 @@ _ALBUMRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
-      name='_special', full_name='proto.AlbumResponse._special',
+      name='_complete', full_name='proto.AlbumResponse._complete',
       index=0, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_idUser', full_name='proto.AlbumResponse._idUser',
+      index=1, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_special', full_name='proto.AlbumResponse._special',
+      index=2, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_balance', full_name='proto.AlbumResponse._balance',
+      index=3, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
-  serialized_start=592,
-  serialized_end=740,
+  serialized_start=606,
+  serialized_end=822,
+)
+
+
+_SELLRESPONSE = _descriptor.Descriptor(
+  name='SellResponse',
+  full_name='proto.SellResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='response', full_name='proto.SellResponse.response', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='price', full_name='proto.SellResponse.price', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='proto.SellResponse.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=824,
+  serialized_end=885,
 )
 
 
@@ -402,8 +475,8 @@ _RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=742,
-  serialized_end=770,
+  serialized_start=887,
+  serialized_end=915,
 )
 
 _MESSAGECLIENT.oneofs_by_name['_idUser'].fields.append(
@@ -424,6 +497,9 @@ _MESSAGECLIENT.fields_by_name['name'].containing_oneof = _MESSAGECLIENT.oneofs_b
 _MESSAGECLIENT.oneofs_by_name['_password'].fields.append(
   _MESSAGECLIENT.fields_by_name['password'])
 _MESSAGECLIENT.fields_by_name['password'].containing_oneof = _MESSAGECLIENT.oneofs_by_name['_password']
+_FIGURE.oneofs_by_name['_path'].fields.append(
+  _FIGURE.fields_by_name['path'])
+_FIGURE.fields_by_name['path'].containing_oneof = _FIGURE.oneofs_by_name['_path']
 _FIGURE.oneofs_by_name['_quantity'].fields.append(
   _FIGURE.fields_by_name['quantity'])
 _FIGURE.fields_by_name['quantity'].containing_oneof = _FIGURE.oneofs_by_name['_quantity']
@@ -437,14 +513,24 @@ _LOGINRESPONSE.oneofs_by_name['_figure'].fields.append(
 _LOGINRESPONSE.fields_by_name['figure'].containing_oneof = _LOGINRESPONSE.oneofs_by_name['_figure']
 _ALBUMRESPONSE.fields_by_name['special'].message_type = _FIGURE
 _ALBUMRESPONSE.fields_by_name['figures'].message_type = _FIGURE
+_ALBUMRESPONSE.oneofs_by_name['_complete'].fields.append(
+  _ALBUMRESPONSE.fields_by_name['complete'])
+_ALBUMRESPONSE.fields_by_name['complete'].containing_oneof = _ALBUMRESPONSE.oneofs_by_name['_complete']
+_ALBUMRESPONSE.oneofs_by_name['_idUser'].fields.append(
+  _ALBUMRESPONSE.fields_by_name['idUser'])
+_ALBUMRESPONSE.fields_by_name['idUser'].containing_oneof = _ALBUMRESPONSE.oneofs_by_name['_idUser']
 _ALBUMRESPONSE.oneofs_by_name['_special'].fields.append(
   _ALBUMRESPONSE.fields_by_name['special'])
 _ALBUMRESPONSE.fields_by_name['special'].containing_oneof = _ALBUMRESPONSE.oneofs_by_name['_special']
+_ALBUMRESPONSE.oneofs_by_name['_balance'].fields.append(
+  _ALBUMRESPONSE.fields_by_name['balance'])
+_ALBUMRESPONSE.fields_by_name['balance'].containing_oneof = _ALBUMRESPONSE.oneofs_by_name['_balance']
 DESCRIPTOR.message_types_by_name['MessageClient'] = _MESSAGECLIENT
 DESCRIPTOR.message_types_by_name['Figure'] = _FIGURE
 DESCRIPTOR.message_types_by_name['User'] = _USER
 DESCRIPTOR.message_types_by_name['LoginResponse'] = _LOGINRESPONSE
 DESCRIPTOR.message_types_by_name['AlbumResponse'] = _ALBUMRESPONSE
+DESCRIPTOR.message_types_by_name['SellResponse'] = _SELLRESPONSE
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -483,6 +569,13 @@ AlbumResponse = _reflection.GeneratedProtocolMessageType('AlbumResponse', (_mess
   })
 _sym_db.RegisterMessage(AlbumResponse)
 
+SellResponse = _reflection.GeneratedProtocolMessageType('SellResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SELLRESPONSE,
+  '__module__' : 'proto.message_pb2'
+  # @@protoc_insertion_point(class_scope:proto.SellResponse)
+  })
+_sym_db.RegisterMessage(SellResponse)
+
 Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), {
   'DESCRIPTOR' : _RESPONSE,
   '__module__' : 'proto.message_pb2'
@@ -499,8 +592,8 @@ _MESSAGE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=773,
-  serialized_end=943,
+  serialized_start=918,
+  serialized_end=1194,
   methods=[
   _descriptor.MethodDescriptor(
     name='Login',
@@ -529,6 +622,26 @@ _MESSAGE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_MESSAGECLIENT,
     output_type=_ALBUMRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Buy',
+    full_name='proto.Message.Buy',
+    index=3,
+    containing_service=None,
+    input_type=_MESSAGECLIENT,
+    output_type=_ALBUMRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Sell',
+    full_name='proto.Message.Sell',
+    index=4,
+    containing_service=None,
+    input_type=_MESSAGECLIENT,
+    output_type=_SELLRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
