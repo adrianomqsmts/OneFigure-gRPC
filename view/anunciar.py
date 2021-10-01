@@ -1,17 +1,17 @@
 import json
-import controller.client as clt
+from controller.client import Client
 
 
 def anunciarview():
-    response = _anunciar()
-    if response:
+    isvalid, trades = _anunciar()
+    if isvalid:
         print("--------------------- LISTA DE TROCAS -------------------")
-        for trade in response:
-            print("Usuário {", trade['name'], '} - Código da Troca: {', trade['idTrade'], '}')
-            print("Oferece -> ID figura: ", trade['offerID'], '- Nome: ', trade['offerName'], ' - Raridade: ',
-                  trade['offerRarity'])
-            print("Deseja <- ID figura: ", trade['takingID'], '- Nome: ', trade['takingName'], ' - Raridade: ',
-                  trade['takingRarity'])
+        for trade in trades:
+            print("Usuário {", trade.name, '} - Código da Troca: {', trade.idTrade, '}')
+            print("Oferece -> ID figura: ", trade.offerID, '- Nome: ', trade.offerName, ' - Raridade: ',
+                  trade.offerRarity)
+            print("Deseja <- ID figura: ", trade.takingID, '- Nome: ', trade.takingName, ' - Raridade: ',
+                  trade.takingRarity)
             print('--------------------- ------*----- -------------------')
     else:
         print('Lamentamos, mas não foi possível exibir as trocas')
@@ -19,13 +19,10 @@ def anunciarview():
 
 
 def _anunciar():
-    data = {
-        'function': 8
-    }
 
-    response = clt.client(data=data)
+    client = Client()
+    response = client.listTrade()
+    isvalid = response.response
+    trades = response.list
 
-    if 'response' in response:  # Se tiver o campo responde dentro da resposta, então houve algum tipo de erro
-        return False
-    else:
-        return response
+    return isvalid, trades

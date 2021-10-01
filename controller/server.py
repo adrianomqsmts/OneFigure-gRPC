@@ -1,17 +1,10 @@
 import grpc
 from concurrent import futures
-import time
-
-import proto.message_pb2
 import proto.message_pb2_grpc as pb2_grpc
 import proto.message_pb2 as pb2
 import model.user as user
 import model.album as album
 import model.figura as figure
-import json
-import socket
-from threading import Thread
-from datetime import datetime
 
 
 class MessageService(pb2_grpc.MessageServicer):
@@ -35,7 +28,11 @@ class MessageService(pb2_grpc.MessageServicer):
             }
 
             if int(database[2]['showcard']):
-                figure = database[2]
+                figure = {
+                    'idFigure': database[1]['idFigure'],
+                    'rarity': database[1]['rarity'],
+                    'name': database[1]['name']
+                }
             else:
                 figure = None
 
@@ -72,7 +69,15 @@ class MessageService(pb2_grpc.MessageServicer):
                 special = database[2]
             else:
                 special = None
-            figures = database[0]
+            figures = []
+            for data in database[0]:
+                figures.append({
+                    'idFigure': data['idFigure'],
+                    'name': data['name'],
+                    'rarity': data['rarity'],
+                    'path': data['path'],
+                    'quantity': data['quantity']
+                })
             out = {
                 'response': True,
                 'complete': complete,
@@ -97,7 +102,6 @@ class MessageService(pb2_grpc.MessageServicer):
         if database:
             balance = float(database[3])
             del database[3]
-            print(f'{result}')
             for i in range(3):
                 result.append({
                     'idFigure': database[i]['idFigure'],
@@ -116,33 +120,61 @@ class MessageService(pb2_grpc.MessageServicer):
                 'balance': None,
                 'figures': None,
             }
+        print('Response <- ', f'{out}')
         return pb2.AlbumResponse(**out)
 
-    # def _createTrade(self, idUser, offer, taking):
-    #     database = figure.createTrade(idUser=idUser, offer=offer, taking=taking)
-    #     if database:
-    #         result = {
-    #             'response': True,
-    #         }
-    #     else:
-    #         result = {
-    #             'response': False,
-    #         }
-    #     data = json.dumps(result)  # convertendo para dicionário
-    #     return data
-    #
-    # def _listTrade(self):
-    #     database = figure.listTrade()
-    #     if database:
-    #         result = database
-    #     else:
-    #         result = {
-    #             'response': False,
-    #         }
-    #     data = json.dumps(result)
-    #     return data
-    #
+    def CreateTrade(self, request, context):
+        print('Create Trade -> IdUser:', request.idUser, ' - Offer ID:', request.offer, ' - Taking ID:', request.taking)
+        idUser = request.idUser
+        offer = request.offer
+        taking = request.taking
+        if (offer >= 0) and (taking >= 0) and (offer <= 50) and (taking <= 50):
+            database = figure.createTrade(idUser=idUser, offer=offer, taking=taking)
+            if database:
+                out = {
+                 'response': True,
+                }
+            else:
+                out = {
+                 'response': False,
+                }
+        else:
+            out = {
+                'response': False,
+            }
+        print('Response <- ', f'{out}')
+        return pb2.Response(**out)
+
+    def ListTrade(self, request, context):
+        print('Listar Trocas -> ')
+        database = figure.listTrade()
+        if database:
+            result = []
+            for data in database:
+                result.append({
+                    'name': data['name'],
+                    'idTrade': data['idTrade'],
+                    'offerID': data['offerID'],
+                    'offerName': data['offerName'],
+                    'offerRarity': data['offerRarity'],
+                    'takingID': data['takingID'],
+                    'takingName': data['takingName'],
+                    'takingRarity': data['takingRarity']
+                })
+            out = {
+                'response': True,
+                'list': result
+            }
+        else:
+            out = {
+                'response': False,
+                'list': None
+            }
+        print('response <-', f'{result}')
+        return pb2.ListTradeResponse(**out)
+
     def Sell(self, request, context):
+        print('Sell -> ID User: ', request.idUser, ' - ID Figure: ', request.idFigure)
         database = figure.sell(request.idUser, request.idFigure)
         print(database)
         if database:
@@ -159,20 +191,24 @@ class MessageService(pb2_grpc.MessageServicer):
                 'price': None,
                 'name': None
             }
+        print('Response <- ', out)
         return pb2.SellResponse(**out)
-    #
-    # def _trade(self, idUser, idTrade):
-    #     database = figure.trade(idUser, idTrade)
-    #     if database:
-    #         result = {
-    #             'response': True,
-    #         }
-    #     else:
-    #         result = {
-    #             'response': False,
-    #         }
-    #     data = json.dumps(result)  # convertendo para dicionário
-    #     return data
+
+    def Trade(self, request, context):
+        print('Trade -> ID User: ', request.idUser, ' - ID Trade: ', request.idTrade)
+        idUser = request.idUser
+        idTrade = request.idTrade
+        database = figure.trade(idUser, idTrade)
+        if database:
+            out = {
+             'response': True
+            }
+        else:
+            out = {
+             'response': False
+            }
+        print('Responde <- ', out)
+        return pb2.Response(**out)
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

@@ -1,25 +1,17 @@
-import json
-import controller.client as clt
+from controller.client import Client
 
 
 def tradeview(user, idTrade):
-    response = _trade(user['idUser'], idTrade)
-    if response:
+    isvalid = _trade(user.idUser, idTrade)
+    if isvalid:
        print('A troca ocorreu com sucesso')
     else:
         print('Lamentamos, mas não foi possível finalizar a troca, verifique suas cartas')
 
 
 def _trade(idUser, idTrade):
-    data = {
-        'function': 3,
-        'idUser': idUser,
-        'idTrade': idTrade
-    }
+    client = Client()
+    response = client.trade(idUser=idUser, idTrade=idTrade)
+    isvalid = response.response
 
-    response = clt.client(data=data)
-
-    if response['response']:  # Se tiver o campo responde dentro da resposta, então houve algum tipo de erro
-        return True
-    else:
-        return False
+    return isvalid
