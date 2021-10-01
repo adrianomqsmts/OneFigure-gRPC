@@ -19,9 +19,7 @@ def buy(id_user):
         show(cards, result)
         result.append(str(value - 25))
     else:
-        result = {
-            'response': False,
-        }
+        result = None
     return result
 
 
@@ -252,13 +250,9 @@ def sell(id_user, id_figure):
         if quantity > 1:
             result = sellAction(id_user, id_figure, quantity)
         else:
-            result = {
-                'response': False,
-            }
+            result = None
     else:
-        result = {
-            'response': False,
-        }
+        result = None
     return result
 
 

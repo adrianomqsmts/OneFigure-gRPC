@@ -29,3 +29,7 @@ class Client(object):
     def buy(self, idUser):
         message = pb2.MessageClient(idUser=idUser)
         return self.stub.Buy(message)
+
+    def sell(self, idUser, idFigure):
+        message = pb2.MessageClient(idUser=idUser, idFigure=idFigure)
+        return self.stub.Sell(message)

@@ -93,68 +93,86 @@ class MessageService(pb2_grpc.MessageServicer):
         print('Buy -> IdUser:', request.idUser)
         idUser = request.idUser
         database = figure.buy(idUser)
-        print(f'{database}')
+        result = []
         if database:
-            result = database
-        else:
-            result = {
-                'response': False,
+            balance = float(database[3])
+            del database[3]
+            print(f'{result}')
+            for i in range(3):
+                result.append({
+                    'idFigure': database[i]['idFigure'],
+                    'rarity': database[i]['rarity'],
+                    'name': database[i]['name']
+                })
+            figures = result
+            out = {
+                'response': True,
+                'balance': balance,
+                'figures': figures,
             }
-        out = {
-            'response': False,
-            'complete': 0,
-            'special': None,
-            'figures': None,
-        }
+        else:
+            out = {
+                'response': False,
+                'balance': None,
+                'figures': None,
+            }
         return pb2.AlbumResponse(**out)
 
-    def _createTrade(self, idUser, offer, taking):
-        database = figure.createTrade(idUser=idUser, offer=offer, taking=taking)
+    # def _createTrade(self, idUser, offer, taking):
+    #     database = figure.createTrade(idUser=idUser, offer=offer, taking=taking)
+    #     if database:
+    #         result = {
+    #             'response': True,
+    #         }
+    #     else:
+    #         result = {
+    #             'response': False,
+    #         }
+    #     data = json.dumps(result)  # convertendo para dicionário
+    #     return data
+    #
+    # def _listTrade(self):
+    #     database = figure.listTrade()
+    #     if database:
+    #         result = database
+    #     else:
+    #         result = {
+    #             'response': False,
+    #         }
+    #     data = json.dumps(result)
+    #     return data
+    #
+    def Sell(self, request, context):
+        database = figure.sell(request.idUser, request.idFigure)
+        print(database)
         if database:
-            result = {
+            name = database['name']
+            price = float(database['price'])
+            out = {
                 'response': True,
+                'price': price,
+                'name': name
             }
         else:
-            result = {
+            out = {
                 'response': False,
+                'price': None,
+                'name': None
             }
-        data = json.dumps(result)  # convertendo para dicionário
-        return data
-
-    def _listTrade(self):
-        database = figure.listTrade()
-        if database:
-            result = database
-        else:
-            result = {
-                'response': False,
-            }
-        data = json.dumps(result)
-        return data
-
-    def _sell(self, idUser, idFigure):
-        database = figure.sell(idUser, idFigure)
-        if database:
-            result = database
-        else:
-            result = {
-                'response': False,
-            }
-        data = json.dumps(result)  # convertendo para dicionário
-        return data
-
-    def _trade(self, idUser, idTrade):
-        database = figure.trade(idUser, idTrade)
-        if database:
-            result = {
-                'response': True,
-            }
-        else:
-            result = {
-                'response': False,
-            }
-        data = json.dumps(result)  # convertendo para dicionário
-        return data
+        return pb2.SellResponse(**out)
+    #
+    # def _trade(self, idUser, idTrade):
+    #     database = figure.trade(idUser, idTrade)
+    #     if database:
+    #         result = {
+    #             'response': True,
+    #         }
+    #     else:
+    #         result = {
+    #             'response': False,
+    #         }
+    #     data = json.dumps(result)  # convertendo para dicionário
+    #     return data
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
