@@ -25,16 +25,23 @@ service Message{
  rpc Buy(MessageClient) returns (AlbumResponse) {}
  // Chama a função venda e mostra as figuras adquiridas
  rpc Sell(MessageClient) returns (SellResponse) {}
+  // Chama a função de criação de trocas e response se criou ou não
+ rpc CreateTrade(MessageClient) returns (Response) {}
+   // Chama a função para exibir todas as trocas cadastradas
+ rpc ListTrade(MessageClient) returns (ListTradeResponse) {}
+    // Chama a função para exibir todas as trocas cadastradas
+ rpc Trade(MessageClient) returns (Response) {}
 
 }
 
 message MessageClient{
  optional int32 idUser = 1;
  optional int32 idFigure = 2;
- optional int32 idOffer = 3;
- optional int32 idTaking = 4;
+ optional int32 offer = 3;
+ optional int32 taking = 4;
  optional string name = 5;
  optional string password = 6;
+ optional int32 idTrade = 7;
 }
 
 message Figure{
@@ -44,6 +51,22 @@ message Figure{
  optional string path = 4;
  optional int32 quantity = 5;
  optional int32 idUser = 6;
+}
+
+message Trade{
+ string name = 1;
+ int32  idTrade = 2;
+ int32 offerID = 3;
+ string offerName = 4;
+ string offerRarity = 5;
+ int32 takingID = 6;
+ string takingName = 7;
+ string takingRarity = 8;
+}
+
+message ListTradeResponse{
+ bool response = 1;
+ repeated Trade list = 2;
 }
 
 message User{

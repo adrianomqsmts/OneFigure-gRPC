@@ -33,3 +33,15 @@ class Client(object):
     def sell(self, idUser, idFigure):
         message = pb2.MessageClient(idUser=idUser, idFigure=idFigure)
         return self.stub.Sell(message)
+
+    def createTrade(self, idUser, offer, taking):
+        message = pb2.MessageClient(idUser=idUser, offer=offer, taking=taking)
+        return self.stub.CreateTrade(message)
+
+    def listTrade(self):
+        message = pb2.MessageClient()
+        return self.stub.ListTrade(message)
+
+    def trade(self, idUser, idTrade):
+        message = pb2.MessageClient(idUser=idUser, idTrade=idTrade)
+        return self.stub.Trade(message)

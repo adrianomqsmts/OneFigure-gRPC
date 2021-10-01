@@ -47,6 +47,21 @@ class MessageStub(object):
                 request_serializer=proto_dot_message__pb2.MessageClient.SerializeToString,
                 response_deserializer=proto_dot_message__pb2.SellResponse.FromString,
                 )
+        self.CreateTrade = channel.unary_unary(
+                '/proto.Message/CreateTrade',
+                request_serializer=proto_dot_message__pb2.MessageClient.SerializeToString,
+                response_deserializer=proto_dot_message__pb2.Response.FromString,
+                )
+        self.ListTrade = channel.unary_unary(
+                '/proto.Message/ListTrade',
+                request_serializer=proto_dot_message__pb2.MessageClient.SerializeToString,
+                response_deserializer=proto_dot_message__pb2.ListTradeResponse.FromString,
+                )
+        self.Trade = channel.unary_unary(
+                '/proto.Message/Trade',
+                request_serializer=proto_dot_message__pb2.MessageClient.SerializeToString,
+                response_deserializer=proto_dot_message__pb2.Response.FromString,
+                )
 
 
 class MessageServicer(object):
@@ -95,6 +110,27 @@ class MessageServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreateTrade(self, request, context):
+        """Chama a função de criação de trocas e response se criou ou não
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListTrade(self, request, context):
+        """Chama a função para exibir todas as trocas cadastradas
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Trade(self, request, context):
+        """Chama a função para exibir todas as trocas cadastradas
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MessageServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -122,6 +158,21 @@ def add_MessageServicer_to_server(servicer, server):
                     servicer.Sell,
                     request_deserializer=proto_dot_message__pb2.MessageClient.FromString,
                     response_serializer=proto_dot_message__pb2.SellResponse.SerializeToString,
+            ),
+            'CreateTrade': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateTrade,
+                    request_deserializer=proto_dot_message__pb2.MessageClient.FromString,
+                    response_serializer=proto_dot_message__pb2.Response.SerializeToString,
+            ),
+            'ListTrade': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListTrade,
+                    request_deserializer=proto_dot_message__pb2.MessageClient.FromString,
+                    response_serializer=proto_dot_message__pb2.ListTradeResponse.SerializeToString,
+            ),
+            'Trade': grpc.unary_unary_rpc_method_handler(
+                    servicer.Trade,
+                    request_deserializer=proto_dot_message__pb2.MessageClient.FromString,
+                    response_serializer=proto_dot_message__pb2.Response.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -223,5 +274,56 @@ class Message(object):
         return grpc.experimental.unary_unary(request, target, '/proto.Message/Sell',
             proto_dot_message__pb2.MessageClient.SerializeToString,
             proto_dot_message__pb2.SellResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CreateTrade(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/proto.Message/CreateTrade',
+            proto_dot_message__pb2.MessageClient.SerializeToString,
+            proto_dot_message__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListTrade(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/proto.Message/ListTrade',
+            proto_dot_message__pb2.MessageClient.SerializeToString,
+            proto_dot_message__pb2.ListTradeResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Trade(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/proto.Message/Trade',
+            proto_dot_message__pb2.MessageClient.SerializeToString,
+            proto_dot_message__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

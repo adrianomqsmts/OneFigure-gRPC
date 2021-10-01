@@ -1,10 +1,10 @@
 import json
-import controller.client as clt
+from controller.client import Client
 
 
 def offerview(user, offer, taking):
-    response = _offer(user, offer, taking)
-    if response:
+    isvalid = _offer(user, offer, taking)
+    if isvalid:
         print('A troca foi anunciada')
     else:
         print('Lamentamos, mas não alguma coisa não está correta (quantidade insuficente ou ID incorreto)')
@@ -12,16 +12,8 @@ def offerview(user, offer, taking):
 
 
 def _offer(user, offer, taking):
-    data = {
-        'function': 4,
-        'idUser': user['idUser'],
-        'offer': offer,
-        'taking': taking
-    }
+    client = Client()
+    response = client.createTrade(idUser=user.idUser, offer=offer, taking=taking)
+    isvalid = response.response
 
-    response = clt.client(data=data)
-
-    if response['response']:  # Se tiver o campo responde dentro da resposta, então houve algum tipo de erro
-        return True
-    else:
-        return False
+    return isvalid
