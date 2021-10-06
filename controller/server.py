@@ -31,7 +31,8 @@ class MessageService(pb2_grpc.MessageServicer):
                 figure = {
                     'idFigure': database[1]['idFigure'],
                     'rarity': database[1]['rarity'],
-                    'name': database[1]['name']
+                    'name': database[1]['name'],
+                    'path': database[1]['path']
                 }
             else:
                 figure = None
@@ -66,11 +67,17 @@ class MessageService(pb2_grpc.MessageServicer):
         if database:
             complete = int(database[1]['complete'])
             if complete:
-                special = database[2]
+                special = {
+                    'idFigure': database[2]['idFigure'],
+                    'rarity': database[2]['rarity'],
+                    'name': database[2]['name'],
+                    'path': database[2]['path']
+                }
             else:
                 special = None
             figures = []
-            for data in database[0]:
+            newdata = sorted(database[0], key=lambda k: k['idFigure'])
+            for data in newdata:
                 figures.append({
                     'idFigure': data['idFigure'],
                     'name': data['name'],
@@ -106,7 +113,8 @@ class MessageService(pb2_grpc.MessageServicer):
                 result.append({
                     'idFigure': database[i]['idFigure'],
                     'rarity': database[i]['rarity'],
-                    'name': database[i]['name']
+                    'name': database[i]['name'],
+                    'path': database[i]['path']
                 })
             figures = result
             out = {

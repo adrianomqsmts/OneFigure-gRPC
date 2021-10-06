@@ -7,6 +7,7 @@ def tradeview(user, idTrade):
        print('A troca ocorreu com sucesso')
     else:
         print('Lamentamos, mas não foi possível finalizar a troca, verifique suas cartas')
+    return isvalid
 
 
 def _trade(idUser, idTrade):

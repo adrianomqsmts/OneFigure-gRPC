@@ -11,7 +11,7 @@ def figureview(user):
             print(figure.idFigure, '|', figure.name, '|', figure.rarity)
         print('\nseu novo saldo é de', balance, "moedas")
         print()
-        return user
+        return figures
     else:
         print('Não foi possivel fazer a compra saldo insuficiente')
         return None
@@ -33,10 +33,10 @@ def figuresellview(user, figure):
         print('\n ------------ Figurinhas Vendidas ------------------')
         print(name, 'por', price, 'moedas')
         print()
-        return user
+        return isvalid, name, price
     else:
         print('Não foi possivel fazer a venda, você não possui uma ou mais cópias dessa figurinha')
-        return None
+        return None, None, None
 
 
 def _figuresell(user, idFigure):

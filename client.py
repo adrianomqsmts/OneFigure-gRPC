@@ -24,6 +24,7 @@ if __name__ == '__main__':
             name = input('Nome: ')
             password = input('Password: ')
             response = vl.loginview(name=name, password=password)
+            response = response[0]
             if response:
                 user = response  # Armazenar os dados do usuário
                 while True:  # WHILE menu principal

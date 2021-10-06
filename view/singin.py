@@ -7,6 +7,7 @@ def singinview(name, password):
         print('Conta criada com sucesso.')
     else:
         print('Não foi possível criar a conta, possívelmente o nome já existe')
+    return response
 
 
 def _singin(name, password):

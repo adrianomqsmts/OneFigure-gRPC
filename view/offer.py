@@ -6,6 +6,7 @@ def offerview(user, offer, taking):
     isvalid = _offer(user, offer, taking)
     if isvalid:
         print('A troca foi anunciada')
+        return isvalid
     else:
         print('Lamentamos, mas não alguma coisa não está correta (quantidade insuficente ou ID incorreto)')
         return None

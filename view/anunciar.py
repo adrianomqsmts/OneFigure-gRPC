@@ -13,6 +13,7 @@ def anunciarview():
             print("Deseja <- ID figura: ", trade.takingID, '- Nome: ', trade.takingName, ' - Raridade: ',
                   trade.takingRarity)
             print('--------------------- ------*----- -------------------')
+        return trades
     else:
         print('Lamentamos, mas não foi possível exibir as trocas')
         return None
