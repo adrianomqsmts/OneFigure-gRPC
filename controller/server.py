@@ -223,5 +223,5 @@ def serve():
     pb2_grpc.add_MessageServicer_to_server(MessageService(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
-    print('SERVER..')
+    print('SERVIDOR INICIADO...')
     server.wait_for_termination()

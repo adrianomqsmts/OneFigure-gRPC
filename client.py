@@ -19,7 +19,7 @@ if __name__ == '__main__':
     user = None
     print('Iniciando a aplicação...')
     while True:  # WHILE LOGIN
-        option = input("1 - login | 2 - Criar conta | 0 - Sair: ")
+        option = input("1 - Login | 2 - Criar conta | 0 - Sair: ")
         if option == '1':
             name = input('Nome: ')
             password = input('Password: ')
