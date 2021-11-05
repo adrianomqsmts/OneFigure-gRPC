@@ -28,8 +28,8 @@ O sistema foi desenvolvido em um único projeto, juntando o cliente e o servidor
 Para obter uma cópia deste projeto:
 
 ```shell
-git clone https://github.com/adrianomqsmts/CCF355-TP03
-cd exemplo
+git clone https://github.com/adrianomqsmts/OneFigure-gRPC
+cd OneFigure-gRPC
 ```
 
 Para iniciar o servidor:
